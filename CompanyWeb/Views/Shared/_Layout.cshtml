@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CompanyWeb</title>
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CompanyWeb.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="flex" id="wrapper">
+        <!-- Sidebar-->
+        <partial name="_Sidebar" />
+
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+                <div class="w-full flex justify-between items-center">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300" id="sidebarToggle">Toggle Menu</button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="flex items-center space-x-4">
+                            <li class="relative"><a class="text-gray-700 hover:text-blue-500 transition duration-300" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class="relative"><a class="text-gray-700 hover:text-blue-500 transition duration-300" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page content-->
+            <div class="p-6 bg-gray-50 min-h-screen">
+                <main role="main" class="p-6">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-200 text-gray-600 py-4 text-center">
+        <div class="container mx-auto">
+            &copy; 2025 - CompanyWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-blue-500 hover:underline">Privacy</a>
+        </div>
+    </footer>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,30 @@
+@model CompanyWeb.Models.JabatanViewModel
+
+@{
+    ViewData["Title"] = "Jabatan Details";
+}
+
+<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Jabatan Details</h1>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.NamaJabatan)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.NamaJabatan)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Deskripsi)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Deskripsi)
+            </dd>
+        </dl>
+    </div>
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model?.JabatanID" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a> |
+        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+    </div>
+</div>

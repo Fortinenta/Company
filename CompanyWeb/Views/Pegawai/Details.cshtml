@@ -1,0 +1,53 @@
+@model CompanyWeb.Models.PegawaiViewModel
+
+@{
+    ViewData["Title"] = "Pegawai Details";
+}
+
+<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Pegawai Details</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.NamaLengkap):</p>
+            <p>@Html.DisplayFor(model => model.NamaLengkap)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.Email):</p>
+            <p>@Html.DisplayFor(model => model.Email)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.NomorTelepon):</p>
+            <p>@Html.DisplayFor(model => model.NomorTelepon)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.TanggalLahir):</p>
+            <p>@Html.DisplayFor(model => model.TanggalLahir)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.Alamat):</p>
+            <p>@Html.DisplayFor(model => model.Alamat)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.TanggalMasuk):</p>
+            <p>@Html.DisplayFor(model => model.TanggalMasuk)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.StatusKontrak):</p>
+            <p>@Html.DisplayFor(model => model.StatusKontrak)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.NamaCabang):</p>
+            <p>@Html.DisplayFor(model => model.NamaCabang)</p>
+        </div>
+        <div>
+            <p class="font-semibold">@Html.DisplayNameFor(model => model.NamaJabatan):</p>
+            <p>@Html.DisplayFor(model => model.NamaJabatan)</p>
+        </div>
+    </div>
+
+    <div class="mt-6 flex space-x-4">
+        <a asp-action="Edit" asp-route-id="@Model.PegawaiID" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+    </div>
+</div>

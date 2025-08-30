@@ -1,0 +1,23 @@
+@model CompanyWeb.Models.ReportViewModel
+
+@{
+    ViewData["Title"] = "Reports Dashboard";
+}
+
+<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Reports Dashboard</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-blue-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-blue-800 mb-2">Total Pegawai</h2>
+            <p class="text-4xl font-bold text-blue-600">@Model.TotalPegawai</p>
+        </div>
+
+        <div class="bg-green-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-green-800 mb-2">Total Cabang</h2>
+            <p class="text-4xl font-bold text-green-600">@Model.TotalCabang</p>
+        </div>
+
+        @* Add more report cards here as needed *@
+    </div>
+</div>

@@ -1,0 +1,121 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = CompanyWeb
+build_property.RootNamespace = CompanyWeb
+build_property.ProjectDir = C:\Enigma\test-work\CompanySolution\CompanyWeb\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Enigma\test-work\CompanySolution\CompanyWeb
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Cabang/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Cabang/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Cabang/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Cabang/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Cabang/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Jabatan/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmFiYXRhblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Jabatan/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmFiYXRhblxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Jabatan/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmFiYXRhblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Jabatan/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmFiYXRhblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Jabatan/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSmFiYXRhblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Pegawai/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVnYXdhaVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Pegawai/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVnYXdhaVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Pegawai/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVnYXdhaVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Pegawai/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVnYXdhaVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Pegawai/Upload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVnYXdhaVxVcGxvYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Report/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Shared/_FormPartials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb3JtUGFydGlhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Enigma/test-work/CompanySolution/CompanyWeb/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-j2udsemoi5

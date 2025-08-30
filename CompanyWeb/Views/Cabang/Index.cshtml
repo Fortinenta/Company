@@ -1,0 +1,43 @@
+@model IEnumerable<CompanyWeb.Models.CabangViewModel>
+
+@{
+    ViewData["Title"] = "Cabang List";
+}
+
+<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Cabang List</h1>
+
+    <p class="mb-4">
+        <a asp-action="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">Create New</a>
+    </p>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
+                <tr>
+                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.NamaCabang)</th>
+                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.Alamat)</th>
+                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.Kota)</th>
+                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.KodePos)</th>
+                    <th class="py-3 px-6 text-left border-b border-gray-300">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-800">
+                @foreach (var item in Model)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaCabang)</td>
+                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.Alamat)</td>
+                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.Kota)</td>
+                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.KodePos)</td>
+                        <td class="py-3 px-6 border-b border-gray-200">
+                            <a asp-action="Edit" asp-route-id="@item.CabangID" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.CabangID" class="text-green-600 hover:text-green-800 font-medium">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.CabangID" class="text-red-600 hover:text-red-800 font-medium">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
