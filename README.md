@@ -8,12 +8,15 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![CsvHelper](https://img.shields.io/badge/CsvHelper-FF5722?style=for-the-badge&logo=nuget&logoColor=white)
+![FontAwesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white)
 
-Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk manajemen data perusahaan, termasuk informasi pegawai, cabang, dan jabatan.
+Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk manajemen data perusahaan, termasuk informasi pegawai, cabang, dan jabatan. Aplikasi ini telah mengalami serangkaian peningkatan signifikan untuk menyediakan pengalaman pengguna yang lebih baik dan fungsionalitas manajemen data massal yang kuat.
 
 ## Daftar Isi
 
 - [Gambaran Umum Proyek](#gambaran-umum-proyek)
+- [Fitur Utama & Peningkatan Terbaru](#fitur-utama-&-peningkatan-terbaru)
 - [Tumpukan Teknologi (Technology Stack)](#tumpukan-teknologi-technology-stack)
 - [Struktur Proyek](#struktur-proyek)
 - [Detail Komponen](#detail-komponen)
@@ -34,9 +37,30 @@ Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk m
 
 **CompanySolution** adalah sistem informasi berbasis web yang dirancang untuk mengelola data fundamental perusahaan, seperti data pegawai, cabang, dan jabatan. Aplikasi ini terdiri dari tiga komponen utama:
 
-1.  **Backend (CompanyAPI):** Sebuah RESTful API yang dibangun menggunakan ASP.NET Core untuk mengelola semua logika bisnis dan interaksi database.
-2.  **Frontend (CompanyWeb):** Sebuah aplikasi web MVC (Model-View-Controller) yang juga dibangun dengan ASP.NET Core sebagai antarmuka pengguna (UI) untuk berinteraksi dengan data melalui API.
+1.  **Backend (CompanyAPI):** Sebuah RESTful API yang dibangun menggunakan ASP.NET Core untuk mengelola semua logika bisnis dan interaksi database. Kini dilengkapi dengan endpoint transaksional untuk operasi batch.
+2.  **Frontend (CompanyWeb):** Sebuah aplikasi web MVC (Model-View-Controller) yang juga dibangun dengan ASP.NET Core sebagai antarmuka pengguna (UI) untuk berinteraksi dengan data melalui API. Tampilan telah diperbarui secara signifikan untuk pengalaman pengguna yang lebih modern dan responsif.
 3.  **Database:** Skema dan data yang dikelola oleh SQL Server, dengan skrip inisialisasi yang telah disediakan.
+
+## Fitur Utama & Peningkatan Terbaru
+
+Berikut adalah fitur-fitur inti dan peningkatan signifikan yang telah diimplementasikan:
+
+### 🚀 Peningkatan UI/UX Modern
+*   **Desain Responsif:** Tampilan yang dioptimalkan untuk berbagai ukuran layar (mobile-first).
+*   **Layout Bersih:** Tata letak halaman yang lebih modern dengan penggunaan kartu dan bayangan halus.
+*   **Formulir & Tabel Interaktif:** Input formulir yang konsisten, tabel yang mudah dibaca dengan baris bergantian dan efek hover.
+*   **Notifikasi:** Sistem notifikasi yang lebih jelas untuk umpan balik pengguna.
+*   **Ikon:** Penggunaan ikon Font Awesome untuk visualisasi yang lebih baik.
+
+### 📊 Manajemen Data Massal yang Kuat
+*   **Upload & Update Batch Transaksional:**
+    *   Proses "semua atau tidak sama sekali": Jika ada satu kesalahan dalam batch, seluruh operasi dibatalkan untuk menjaga integritas data.
+    *   Notifikasi yang jelas tentang keberhasilan atau kegagalan proses batch.
+*   **Template Download:** Unduh template CSV dengan contoh data untuk memudahkan input data baru.
+*   **Export Data Massal:** Export data pegawai yang dipilih ke file CSV untuk analisis atau update offline.
+*   **Hapus Data Massal:** Hapus beberapa data pegawai sekaligus dengan konfirmasi.
+*   **Halaman Batch Update Khusus:** Halaman terpisah untuk mengelola update data massal dengan kolom read-only untuk ID dan nama lengkap.
+*   **Dropdown Otomatis:** Input untuk Status Kontrak, Cabang, dan Jabatan kini menggunakan dropdown untuk mengurangi kesalahan input.
 
 ## Tumpukan Teknologi (Technology Stack)
 
@@ -48,8 +72,8 @@ Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk m
 *   **Frontend:**
     *   Framework: ASP.NET Core MVC
     *   Bahasa: C#, HTML, CSS, JavaScript
-    *   CSS Framework: Tailwind CSS
-    *   Library: jQuery
+    *   CSS Framework: Tailwind CSS (v3)
+    *   Library: jQuery, CsvHelper, Font Awesome
 *   **Database:**
     *   Sistem: Microsoft SQL Server
 *   **Development Tools:**
@@ -62,17 +86,20 @@ Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk m
 C:\Enigma\test-work\CompanySolution\
 ├─── CompanySolution.sln       // File solusi utama untuk Visual Studio
 ├─── CompanyAPI\               // Proyek Backend (RESTful API)
-│    ├─── Controllers\         // Endpoints API (Pegawai, Cabang, Jabatan)
+│    ├─── Controllers\         // Endpoints API (Pegawai, Cabang, Jabatan, Report)
 │    ├─── Models\              // Model data Entity Framework Core
-│    ├─── Services\            // Logika bisnis
-│    ├─── ViewModels\          // Data Transfer Objects (DTOs)
+│    ├─── Services\            // Logika bisnis & transaksi batch
+│    ├─── ViewModels\          // Data Transfer Objects (DTOs) & BatchResult
 │    └─── Program.cs           // Konfigurasi dan entry point API
 ├─── CompanyWeb\               // Proyek Frontend (Web App MVC)
 │    ├─── Controllers\         // Controller untuk me-render Views
-│    ├─── Models\              // ViewModels untuk halaman web
+│    ├─── Models\              // ViewModels untuk halaman web (termasuk FileUploadViewModel, BatchResultViewModel)
 │    ├─── Services\            // Layanan untuk berkomunikasi dengan CompanyAPI
 │    ├─── Views\                // Halaman CSHTML (UI)
+│    │    ├─── Pegawai\         // Halaman Pegawai (Index, Create, Edit, Details, Upload, BatchUpdate)
+│    │    └─── Shared\          // Layout, Partial Views (termasuk _Sidebar, _ScriptsPartial, _DeleteConfirmModal)
 │    ├─── wwwroot\             // Aset statis (CSS, JS, gambar)
+│    ├─── Mappings\            // ClassMap untuk CsvHelper
 │    └─── Program.cs           // Konfigurasi dan entry point web app
 ├─── Database\                 // Skrip dan dokumentasi database
 │    └─── Scripts\             // Skrip SQL untuk membuat tabel dan data
@@ -87,19 +114,17 @@ C:\Enigma\test-work\CompanySolution\
 
 *   **Controllers & Endpoints:**
     *   `CabangController`: Mengelola data cabang.
-        *   `GET /api/cabang`: Mendapatkan semua data cabang.
-        *   `GET /api/cabang/{id}`: Mendapatkan cabang berdasarkan ID.
-        *   `POST /api/cabang`: Membuat cabang baru.
-        *   `PUT /api/cabang/{id}`: Memperbarui cabang.
-        *   `DELETE /api/cabang/{id}`: Menghapus cabang.
-    *   `JabatanController`: Mengelola data jabatan (mirip dengan endpoint Cabang).
-    *   `PegawaiController`: Mengelola data pegawai (mirip dengan endpoint Cabang).
+    *   `JabatanController`: Mengelola data jabatan.
+    *   `PegawaiController`: Mengelola data pegawai. **Kini dilengkapi dengan endpoint `POST /api/pegawai/batch` untuk operasi transaksional.**
     *   `ReportController`: Menyediakan data untuk laporan.
 *   **Models:**
     *   `Pegawai.cs`, `Cabang.cs`, `Jabatan.cs`: Representasi tabel di database.
     *   `CompanyDbContext.cs`: Konteks database untuk Entity Framework Core.
 *   **Services:**
-    *   Berisi logika bisnis yang dipisahkan dari controller, seperti validasi atau proses data yang kompleks sebelum disimpan ke database.
+    *   Berisi logika bisnis yang dipisahkan dari controller, termasuk implementasi transaksi database untuk operasi batch.
+*   **ViewModels:**
+    *   `PegawaiDto.cs`, `CabangDto.cs`, `JabatanDto.cs`: Data Transfer Objects untuk komunikasi API.
+    *   `BatchResult.cs`: Model untuk respons operasi batch.
 
 ### Frontend (CompanyWeb)
 
@@ -107,11 +132,18 @@ C:\Enigma\test-work\CompanySolution\
 
 *   **Fitur:**
     *   Menampilkan, menambah, mengubah, dan menghapus data Pegawai, Cabang, dan Jabatan.
-    *   Mengunggah data pegawai secara massal (fitur `Upload.cshtml`).
+    *   **Manajemen Data Massal:**
+        *   Halaman `Upload.cshtml`: Untuk upload data pegawai baru dari template CSV.
+        *   Halaman `BatchUpdate.cshtml`: Untuk update data pegawai yang sudah ada dari file CSV hasil export.
+        *   Fungsionalitas "Export Selected" dan "Delete Selected" di halaman daftar pegawai.
     *   Menampilkan laporan sederhana.
 *   **Arsitektur:**
     *   Menggunakan pola **MVC** di mana `Controller` menerima input, `Model` (ViewModel) membawa data ke `View`, dan `View` menampilkannya sebagai HTML.
     *   `ApiService` (dan turunannya seperti `CabangApiService`) digunakan untuk melakukan panggilan HTTP (GET, POST, PUT, DELETE) ke `CompanyAPI`.
+*   **UI/UX:**
+    *   Menggunakan Tailwind CSS untuk styling modern dan responsif.
+    *   Integrasi Font Awesome untuk ikon.
+    *   Peningkatan pada layout, form, dan tabel untuk pengalaman pengguna yang lebih baik.
 
 ### Database (Scripts)
 
