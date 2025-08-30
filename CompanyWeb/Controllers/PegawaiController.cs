@@ -2,6 +2,11 @@ using CompanyWeb.Models;
 using CompanyWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
+using CsvHelper;
+using System.Text;
+using CsvHelper.Configuration;
+using CompanyWeb.Mappings;
 
 namespace CompanyWeb.Controllers
 {
@@ -36,16 +41,9 @@ namespace CompanyWeb.Controllers
         // GET: Pegawai/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var pegawai = await _pegawaiApiService.GetPegawaiByIdAsync(id.Value);
-            if (pegawai == null)
-            {
-                return NotFound();
-            }
+            if (pegawai == null) return NotFound();
             return View(pegawai);
         }
 
@@ -69,8 +67,6 @@ namespace CompanyWeb.Controllers
                     TempData["SuccessMessage"] = "Employee created successfully!";
                     return RedirectToAction(nameof(Index));
                 }
-                ModelState.AddModelError(string.Empty, "Error creating employee.");
-                TempData["ErrorMessage"] = "Error creating employee.";
             }
             await PopulateDropdowns();
             return View(pegawaiViewModel);
@@ -79,16 +75,9 @@ namespace CompanyWeb.Controllers
         // GET: Pegawai/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var pegawai = await _pegawaiApiService.GetPegawaiByIdAsync(id.Value);
-            if (pegawai == null)
-            {
-                return NotFound();
-            }
+            if (pegawai == null) return NotFound();
             await PopulateDropdowns();
             return View(pegawai);
         }
@@ -98,11 +87,7 @@ namespace CompanyWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PegawaiID,NamaLengkap,Email,NomorTelepon,TanggalLahir,Alamat,TanggalMasuk,StatusKontrak,CabangID,JabatanID")] PegawaiViewModel pegawaiViewModel)
         {
-            if (id != pegawaiViewModel.PegawaiID)
-            {
-                return NotFound();
-            }
-
+            if (id != pegawaiViewModel.PegawaiID) return NotFound();
             if (ModelState.IsValid)
             {
                 var success = await _pegawaiApiService.UpdatePegawaiAsync(pegawaiViewModel);
@@ -111,8 +96,6 @@ namespace CompanyWeb.Controllers
                     TempData["SuccessMessage"] = "Employee updated successfully!";
                     return RedirectToAction(nameof(Index));
                 }
-                ModelState.AddModelError(string.Empty, "Error updating employee.");
-                TempData["ErrorMessage"] = "Error updating employee.";
             }
             await PopulateDropdowns();
             return View(pegawaiViewModel);
@@ -121,17 +104,9 @@ namespace CompanyWeb.Controllers
         // GET: Pegawai/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var pegawai = await _pegawaiApiService.GetPegawaiByIdAsync(id.Value);
-            if (pegawai == null)
-            {
-                return NotFound();
-            }
-
+            if (pegawai == null) return NotFound();
             return View(pegawai);
         }
 
@@ -141,29 +116,90 @@ namespace CompanyWeb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var success = await _pegawaiApiService.DeletePegawaiAsync(id);
-            if (success)
-            {
-                TempData["SuccessMessage"] = "Employee deleted successfully!";
-                return RedirectToAction(nameof(Index));
-            }
-            ModelState.AddModelError(string.Empty, "Error deleting employee.");
-            TempData["ErrorMessage"] = "Error deleting employee.";
-            return RedirectToAction(nameof(Delete), new { id = id });
+            if (success) TempData["SuccessMessage"] = "Employee deleted successfully!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Pegawai/Search
-        // This action is now integrated into the Index action.
-        // public async Task<IActionResult> Search(string nama)
-        // {
-        //     var pegawai = await _pegawaiApiService.SearchPegawaiAsync(nama);
-        //     return View("Index", pegawai);
-        // }
+        // GET: Pegawai/Upload
+        public IActionResult Upload()
+        {
+            return View(new FileUploadViewModel());
+        }
+
+        // POST: Pegawai/Upload
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upload(FileUploadViewModel model)
+        {
+            if (model.FormFile != null && model.FormFile.Length > 0)
+            {
+                try
+                {
+                    var config = new CsvConfiguration(CultureInfo.InvariantCulture) { HeaderValidated = null, MissingFieldFound = null };
+                    using (var reader = new StreamReader(model.FormFile.OpenReadStream()))
+                    using (var csv = new CsvReader(reader, config))
+                    {
+                        csv.Context.RegisterClassMap<PegawaiViewModelMap>();
+                        var records = csv.GetRecords<PegawaiViewModel>().ToList();
+                        model.StagedPegawai = records;
+                    }
+                    TempData["SuccessMessage"] = $"{model.StagedPegawai.Count} records loaded from file. Please review before saving.";
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = $"Error processing file: {ex.Message}";
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("FormFile", "Please select a file to upload.");
+            }
+            return View(model);
+        }
+
+        // GET: Pegawai/DownloadTemplate
+        public IActionResult DownloadTemplate()
+        {
+            var exampleRecord = new List<PegawaiViewModel> { new PegawaiViewModel { NamaLengkap = "John Doe", Email = "john.doe@example.com", NomorTelepon = "081234567890", TanggalLahir = new DateTime(1990, 1, 15), Alamat = "123 Main Street", TanggalMasuk = DateTime.Today, StatusKontrak = "Aktif", CabangID = 1, JabatanID = 1 } };
+            using (var memoryStream = new MemoryStream())
+            using (var writer = new StreamWriter(memoryStream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<PegawaiViewModelMap>();
+                csv.WriteRecords(exampleRecord);
+                writer.Flush();
+                return File(memoryStream.ToArray(), "text/csv", "template-pegawai.csv");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveStagedData(FileUploadViewModel model)
+        {
+            if (model.StagedPegawai == null || !model.StagedPegawai.Any()) { TempData["ErrorMessage"] = "No data to save."; return RedirectToAction(nameof(Upload)); }
+            var result = await _pegawaiApiService.ProcessBatchAsync(model.StagedPegawai);
+            if (result != null && result.Success) { TempData["SuccessMessage"] = result.Message; } else { TempData["ErrorMessage"] = result?.Message ?? "An unknown error occurred."; }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> ExportPegawai()
+        {
+            var pegawaiList = await _pegawaiApiService.GetAllPegawaiAsync();
+            using (var memoryStream = new MemoryStream())
+            using (var writer = new StreamWriter(memoryStream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<PegawaiViewModelMap>();
+                csv.WriteRecords(pegawaiList);
+                writer.Flush();
+                return File(memoryStream.ToArray(), "text/csv", "pegawai-export.csv");
+            }
+        }
 
         private async Task PopulateDropdowns()
         {
             var cabangs = await _cabangApiService.GetAllCabangAsync();
             var jabatans = await _jabatanApiService.GetAllJabatanAsync();
-
             ViewBag.CabangList = new SelectList(cabangs, "CabangID", "NamaCabang");
             ViewBag.JabatanList = new SelectList(jabatans, "JabatanID", "NamaJabatan");
         }

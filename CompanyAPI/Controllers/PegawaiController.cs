@@ -2,7 +2,6 @@ using CompanyAPI.Models;
 using CompanyAPI.Services;
 using CompanyAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CompanyAPI.Controllers
 {
@@ -19,22 +18,25 @@ namespace CompanyAPI.Controllers
 
         // GET: api/Pegawai
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PegawaiDto>>> GetPegawai()
+        public async Task<ActionResult<IEnumerable<PegawaiDto>>> GetPegawais()
         {
-            var pegawai = await _pegawaiService.GetAllPegawaiAsync();
-            return Ok(pegawai);
+            var pegawais = await _pegawaiService.GetAllAsync();
+            var dtos = pegawais.Select(p => new PegawaiDto(p)); // Assuming a constructor mapping
+            return Ok(dtos);
         }
 
         // GET: api/Pegawai/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PegawaiDto>> GetPegawai(int id)
         {
-            var pegawai = await _pegawaiService.GetPegawaiByIdAsync(id);
+            var pegawai = await _pegawaiService.GetByIdAsync(id);
+
             if (pegawai == null)
             {
                 return NotFound();
             }
-            return Ok(pegawai);
+
+            return new PegawaiDto(pegawai);
         }
 
         // PUT: api/Pegawai/5
@@ -46,8 +48,8 @@ namespace CompanyAPI.Controllers
                 return BadRequest();
             }
 
-            var success = await _pegawaiService.UpdatePegawaiAsync(id, pegawaiDto);
-            if (!success)
+            var result = await _pegawaiService.UpdateAsync(id, pegawaiDto);
+            if (!result)
             {
                 return NotFound();
             }
@@ -59,28 +61,40 @@ namespace CompanyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<PegawaiDto>> PostPegawai(PegawaiDto pegawaiDto)
         {
-            var createdPegawai = await _pegawaiService.CreatePegawaiAsync(pegawaiDto);
-            return CreatedAtAction("GetPegawai", new { id = createdPegawai.PegawaiID }, createdPegawai);
+            var newPegawai = await _pegawaiService.CreateAsync(pegawaiDto);
+            var newPegawaiDto = new PegawaiDto(newPegawai);
+            return CreatedAtAction(nameof(GetPegawai), new { id = newPegawai.PegawaiID }, newPegawaiDto);
         }
 
         // DELETE: api/Pegawai/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePegawai(int id)
         {
-            var success = await _pegawaiService.DeletePegawaiAsync(id);
-            if (!success)
+            var result = await _pegawaiService.DeleteAsync(id);
+            if (!result)
             {
                 return NotFound();
             }
+
             return NoContent();
         }
 
-        // GET: api/Pegawai/search
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<PegawaiDto>>> SearchPegawai([FromQuery] string nama)
+        [HttpPost("batch")]
+        public async Task<IActionResult> ProcessBatch([FromBody] List<PegawaiDto> pegawaiDtos)
         {
-            var pegawai = await _pegawaiService.SearchPegawaiAsync(nama);
-            return Ok(pegawai);
+            if (pegawaiDtos == null || !pegawaiDtos.Any())
+            {
+                return BadRequest("No data provided.");
+            }
+
+            var result = await _pegawaiService.ProcessBatchAsync(pegawaiDtos);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }

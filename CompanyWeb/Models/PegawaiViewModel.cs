@@ -8,7 +8,7 @@ namespace CompanyWeb.Models
 
         [Required]
         [Display(Name = "Nama Lengkap")]
-        public string? NamaLengkap { get; set; }
+        public string NamaLengkap { get; set; } = string.Empty;
 
         [EmailAddress]
         public string? Email { get; set; }
@@ -16,27 +16,34 @@ namespace CompanyWeb.Models
         [Display(Name = "Nomor Telepon")]
         public string? NomorTelepon { get; set; }
 
-        [Display(Name = "Tanggal Lahir")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Tanggal Lahir")]
         public DateTime? TanggalLahir { get; set; }
 
-        [Display(Name = "Alamat")]
         public string? Alamat { get; set; }
 
-        public int? CabangID { get; set; }
-        public int? JabatanID { get; set; }
-
-        [Display(Name = "Tanggal Masuk")]
+        [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Tanggal Masuk")]
         public DateTime TanggalMasuk { get; set; }
 
         [Display(Name = "Status Kontrak")]
         public string? StatusKontrak { get; set; }
 
+        [Required]
         [Display(Name = "Cabang")]
+        public int? CabangID { get; set; }
+
+        [Required]
+        [Display(Name = "Jabatan")]
+        public int? JabatanID { get; set; }
+
+        [Display(Name = "Nama Cabang")]
         public string? NamaCabang { get; set; }
 
-        [Display(Name = "Jabatan")]
+        [Display(Name = "Nama Jabatan")]
         public string? NamaJabatan { get; set; }
     }
 }

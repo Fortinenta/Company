@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "skBrdtZby8U=",
+  "dgSpecHash": "fyiW9JcrjS0=",
   "success": true,
   "projectFilePath": "C:\\Enigma\\test-work\\CompanySolution\\CompanyWeb\\CompanyWeb.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\priom\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

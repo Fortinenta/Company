@@ -165,3 +165,4 @@ C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\appsettings.Prod
 C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Enigma\test-work\CompanySolution\CompanyAPI\obj\Debug\net9.0\CompanyAPI.sourcelink.json
