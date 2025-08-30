@@ -1,39 +1,36 @@
 @model CompanyWeb.Models.FileUploadViewModel
 
 @{
-    ViewData["Title"] = "Upload Pegawai Data";
+    ViewData["Title"] = "Batch Update Pegawai";
 }
 
 <div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
-    <h1 class="text-3xl font-bold mb-6">Upload Pegawai Data</h1>
+    <h1 class="text-3xl font-bold mb-6">Batch Update Pegawai</h1>
 
-    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <h2 class="font-semibold text-lg text-blue-800">Instructions</h2>
-        <p class="text-blue-700 mt-1">
-            1. Download the CSV template file.
+    <div class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <h2 class="font-semibold text-lg text-yellow-800">Instructions</h2>
+        <p class="text-yellow-700 mt-1">
+            1. Upload the CSV file you exported from the main employee list.
         </p>
-        <p class="text-blue-700">
-            2. Fill in the employee data under the provided headers.
+        <p class="text-yellow-700">
+            2. Review and modify the editable data below. Pegawai ID and Nama Lengkap are read-only.
         </p>
-        <p class="text-blue-700">
-            3. Upload the modified file using the form below.
+        <p class="text-yellow-700">
+            3. Click 'Save All Changes' to process the batch update.
         </p>
-        <a asp-action="DownloadTemplate" class="mt-4 inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Download Template
-        </a>
     </div>
 
-    <form asp-action="Upload" method="post" enctype="multipart/form-data" class="space-y-4">
+    <form asp-action="BatchUpdate" method="post" enctype="multipart/form-data" class="space-y-4">
         <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
 
         <div>
             <label asp-for="FormFile" class="block text-gray-700 text-sm font-bold mb-2"></label>
-            <input asp-for="FormFile" type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <input asp-for="FormFile" type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
             <span asp-validation-for="FormFile" class="text-red-500 text-xs italic"></span>
         </div>
 
         <div class="flex items-center justify-between">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Upload</button>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Load File</button>
             <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
         </div>
     </form>
@@ -41,19 +38,19 @@
     @if (Model.StagedPegawai != null && Model.StagedPegawai.Any())
     {
         <hr class="my-8" />
-        <h2 class="text-2xl font-bold mb-4">Review Uploaded Data</h2>
+        <h2 class="text-2xl font-bold mb-4">Review Data for Update</h2>
         <form asp-action="SaveStagedData" method="post">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full leading-normal">
                         <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
                             <tr>
-                                <th class="py-3 px-6 text-left">Nama Lengkap</th>
+                                <th class="py-3 px-6 text-left">ID</th>
+                                <th class="py-3 px-6 text-left">Nama Lengkap (Read-Only)</th>
                                 <th class="py-3 px-6 text-left">Email</th>
                                 <th class="py-3 px-6 text-left">Status Kontrak</th>
                                 <th class="py-3 px-6 text-left">Cabang</th>
                                 <th class="py-3 px-6 text-left">Jabatan</th>
-                                <th class="py-3 px-6 text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-800">
@@ -62,7 +59,11 @@
                                 <tr class="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
                                     <td class="py-3 px-6 border-b border-gray-200">
                                         <input type="hidden" name="StagedPegawai[@i].PegawaiID" value="@Model.StagedPegawai[i].PegawaiID" />
-                                        <input type="text" name="StagedPegawai[@i].NamaLengkap" value="@Model.StagedPegawai[i].NamaLengkap" class="form-input w-full" />
+                                        @Model.StagedPegawai[i].PegawaiID
+                                    </td>
+                                    <td class="py-3 px-6 border-b border-gray-200">
+                                        <input type="hidden" name="StagedPegawai[@i].NamaLengkap" value="@Model.StagedPegawai[i].NamaLengkap" />
+                                        @Model.StagedPegawai[i].NamaLengkap
                                     </td>
                                     <td class="py-3 px-6 border-b border-gray-200">
                                         <input type="email" name="StagedPegawai[@i].Email" value="@Model.StagedPegawai[i].Email" class="form-input w-full" />
@@ -76,9 +77,6 @@
                                     <td class="py-3 px-6 border-b border-gray-200">
                                         <select name="StagedPegawai[@i].JabatanID" asp-for="@Model.StagedPegawai[i].JabatanID" asp-items="Model.JabatanOptions" class="form-select w-full"></select>
                                     </td>
-                                    <td class="py-3 px-6 border-b border-gray-200 text-right">
-                                        <button type="button" class="text-red-500 hover:text-red-700 delete-staged-row">Delete</button>
-                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -86,22 +84,8 @@
                 </div>
             </div>
             <div class="mt-6 flex justify-end">
-                <button type="submit" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded">Save All to Database</button>
+                <button type="submit" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded">Save All Changes</button>
             </div>
         </form>
     }
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.delete-staged-row').forEach(button => {
-                button.addEventListener('click', function () {
-                    this.closest('tr').remove();
-                });
-            });
-        });
-    </script>
-}

@@ -8,11 +8,11 @@ namespace CompanyWeb.Models
         [Display(Name = "File")]
         public IFormFile? FormFile { get; set; }
 
-        public SelectList? PegawaiList { get; set; }
-
-        public int PegawaiId { get; set; }
-
         public List<PegawaiViewModel>? StagedPegawai { get; set; }
 
+        // Properties for dropdown options
+        public IEnumerable<SelectListItem> StatusKontrakOptions { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> CabangOptions { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> JabatanOptions { get; set; } = new List<SelectListItem>();
     }
 }

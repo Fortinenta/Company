@@ -1,11 +1,36 @@
-<div class="bg-gray-800 text-white" id="sidebar-wrapper">
-    <div class="py-4 px-6 text-2xl font-semibold border-b border-gray-700">Company Solution</div>
-    <div class="flex flex-col py-4">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Home" asp-action="Index">Dashboard</a>
-        <a class="py-2 px-6 hover:bg-gray-700 text-white" asp-controller="Pegawai" asp-action="Index">Pegawai</a>
-        <a class="py-2 px-8 hover:bg-gray-700 text-gray-300" asp-controller="Pegawai" asp-action="Upload">Upload Kontrak</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Cabang" asp-action="Index">Cabang</a>
-        <a class="py-2 px-6 hover:bg-gray-700" asp-controller="Jabatan" asp-action="Index">Jabatan</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Report" asp-action="Index">Reports</a>
+<div class="flex flex-col w-64 bg-gray-800 text-white shadow-lg">
+    <div class="flex items-center justify-center h-16 bg-gray-900 text-xl font-semibold">
+        Company Solution
     </div>
+    <nav class="flex-1 px-2 py-4 space-y-2">
+        <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
+        </a>
+        <div class="relative">
+            <button type="button" class="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200 focus:outline-none" aria-expanded="false">
+                <i class="fas fa-users mr-3"></i> Pegawai
+                <svg class="ml-auto h-5 w-5 transform rotate-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+            <div class="pl-6 mt-1 space-y-1">
+                <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Pegawai" asp-action="Index">
+                    <i class="fas fa-list mr-3"></i> List Pegawai
+                </a>
+                <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Pegawai" asp-action="Upload">
+                    <i class="fas fa-upload mr-3"></i> Upload Kontrak
+                </a>
+                <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Pegawai" asp-action="BatchUpdate">
+                    <i class="fas fa-sync-alt mr-3"></i> Batch Update
+                </a>
+            </div>
+        </div>
+        <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Cabang" asp-action="Index">
+            <i class="fas fa-building mr-3"></i> Cabang
+        </a>
+        <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Jabatan" asp-action="Index">
+            <i class="fas fa-briefcase mr-3"></i> Jabatan
+        </a>
+        <a class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition duration-200" asp-controller="Report" asp-action="Index">
+            <i class="fas fa-chart-bar mr-3"></i> Reports
+        </a>
+    </nav>
 </div>

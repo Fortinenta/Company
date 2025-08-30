@@ -4,61 +4,69 @@
     ViewData["Title"] = "Pegawai List";
 }
 
-<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold">Pegawai List</h1>
-        <div>
-            <a asp-action="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">Create New</a>
-            <a asp-action="ExportPegawai" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out ml-2">Export to CSV</a>
-        </div>
-    </div>
-
-    <form asp-action="Index" method="get" class="mb-4">
-        <div class="flex items-center">
-            <input type="text" name="searchNama" placeholder="Search by Name" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            <button type="submit" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search</button>
-            <a asp-action="Index" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Clear</a>
-        </div>
-    </form>
-
-    <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse">
-            <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
-                <tr>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.NamaLengkap)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.Email)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.NomorTelepon)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.TanggalLahir)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.Alamat)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.TanggalMasuk)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.StatusKontrak)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.NamaCabang)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">@Html.DisplayNameFor(model => model.NamaJabatan)</th>
-                    <th class="py-3 px-6 text-left border-b border-gray-300">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-800">
-                @foreach (var item in Model)
-                {
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaLengkap)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NomorTelepon)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.TanggalLahir)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.Alamat)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.TanggalMasuk)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.StatusKontrak)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaCabang)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaJabatan)</td>
-                        <td class="py-3 px-6 border-b border-gray-200">
-                            <a asp-action="Edit" asp-route-id="@item.PegawaiID" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.PegawaiID" class="text-green-600 hover:text-green-800 font-medium">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.PegawaiID" class="text-red-600 hover:text-red-800 font-medium">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold">Pegawai List</h1>
+    <div>
+        <a asp-action="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">Create New</a>
     </div>
 </div>
->
+
+<form asp-action="ProcessMassAction" method="post">
+    <div class="mb-4 flex space-x-2">
+        <button type="submit" name="action" value="export" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">Export Selected</button>
+        <button type="submit" name="action" value="delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md" onclick="return confirm('Are you sure you want to delete the selected items?');">Delete Selected</button>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full leading-normal">
+                <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
+                    <tr>
+                        <th class="py-3 px-4 text-left"><input type="checkbox" id="checkAll" class="form-checkbox h-4 w-4 text-blue-600" /></th>
+                        <th class="py-3 px-6 text-left">Nama Lengkap</th>
+                        <th class="py-3 px-6 text-left">Email</th>
+                        <th class="py-3 px-6 text-left">Tanggal Masuk</th>
+                        <th class="py-3 px-6 text-left">Status Kontrak</th>
+                        <th class="py-3 px-6 text-left">Cabang</th>
+                        <th class="py-3 px-6 text-left">Jabatan</th>
+                        <th class="py-3 px-6 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
+                            <td class="py-3 px-4 border-b border-gray-200"><input type="checkbox" name="selectedIds" value="@item.PegawaiID" class="row-checkbox form-checkbox h-4 w-4 text-blue-600" /></td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaLengkap)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.TanggalMasuk)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.StatusKontrak)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaCabang)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">@Html.DisplayFor(modelItem => item.NamaJabatan)</td>
+                            <td class="py-3 px-6 border-b border-gray-200">
+                                <a asp-action="Edit" asp-route-id="@item.PegawaiID" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.PegawaiID" class="text-green-600 hover:text-green-800 font-medium">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PegawaiID" class="text-red-600 hover:text-red-800 font-medium">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkAll = document.getElementById('checkAll');
+            const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+
+            checkAll.addEventListener('click', function () {
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = checkAll.checked;
+                });
+            });
+        });
+    </script>
+}

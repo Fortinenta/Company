@@ -126,6 +126,23 @@ namespace CompanyWeb.Controllers
             return View(new FileUploadViewModel());
         }
 
+        private async Task<FileUploadViewModel> PopulateDropdownsForUpload(FileUploadViewModel model)
+        {
+            var cabangs = await _cabangApiService.GetAllCabangAsync();
+            var jabatans = await _jabatanApiService.GetAllJabatanAsync();
+
+            model.CabangOptions = cabangs.Select(c => new SelectListItem { Value = c.CabangID.ToString(), Text = c.NamaCabang }).ToList();
+            model.JabatanOptions = jabatans.Select(j => new SelectListItem { Value = j.JabatanID.ToString(), Text = j.NamaJabatan }).ToList();
+            model.StatusKontrakOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Aktif", Text = "Aktif" },
+                new SelectListItem { Value = "Tidak Aktif", Text = "Tidak Aktif" },
+                new SelectListItem { Value = "Permanen", Text = "Permanen" }
+            };
+
+            return model;
+        }
+
         // POST: Pegawai/Upload
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -154,6 +171,45 @@ namespace CompanyWeb.Controllers
             {
                 ModelState.AddModelError("FormFile", "Please select a file to upload.");
             }
+            await PopulateDropdownsForUpload(model);
+            return View(model);
+        }
+
+        // GET: Pegawai/BatchUpdate
+        public IActionResult BatchUpdate()
+        {
+            return View(new FileUploadViewModel());
+        }
+
+        // POST: Pegawai/BatchUpdate
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BatchUpdate(FileUploadViewModel model)
+        {
+            if (model.FormFile != null && model.FormFile.Length > 0)
+            {
+                try
+                {
+                    var config = new CsvConfiguration(CultureInfo.InvariantCulture) { HeaderValidated = null, MissingFieldFound = null };
+                    using (var reader = new StreamReader(model.FormFile.OpenReadStream()))
+                    using (var csv = new CsvReader(reader, config))
+                    {
+                        csv.Context.RegisterClassMap<PegawaiViewModelMap>();
+                        var records = csv.GetRecords<PegawaiViewModel>().ToList();
+                        model.StagedPegawai = records;
+                    }
+                    TempData["SuccessMessage"] = $"{model.StagedPegawai.Count} records loaded from file for update. Please review before saving.";
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = $"Error processing file: {ex.Message}";
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("FormFile", "Please select a file to upload.");
+            }
+            await PopulateDropdownsForUpload(model);
             return View(model);
         }
 
@@ -180,6 +236,47 @@ namespace CompanyWeb.Controllers
             var result = await _pegawaiApiService.ProcessBatchAsync(model.StagedPegawai);
             if (result != null && result.Success) { TempData["SuccessMessage"] = result.Message; } else { TempData["ErrorMessage"] = result?.Message ?? "An unknown error occurred."; }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProcessMassAction(string action, List<int> selectedIds)
+        {
+            if (selectedIds == null || !selectedIds.Any())
+            {
+                TempData["ErrorMessage"] = "No items selected.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            switch (action)
+            {
+                case "export":
+                    var allPegawai = await _pegawaiApiService.GetAllPegawaiAsync();
+                    var selectedPegawai = allPegawai.Where(p => selectedIds.Contains(p.PegawaiID)).ToList();
+                    
+                    using (var memoryStream = new MemoryStream())
+                    using (var writer = new StreamWriter(memoryStream))
+                    using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                    {
+                        csv.Context.RegisterClassMap<PegawaiViewModelMap>();
+                        csv.WriteRecords(selectedPegawai);
+                        writer.Flush();
+                        return File(memoryStream.ToArray(), "text/csv", $"pegawai-export-{DateTime.UtcNow.Ticks}.csv");
+                    }
+
+                case "delete":
+                    int successCount = 0;
+                    foreach (var id in selectedIds)
+                    {
+                        var success = await _pegawaiApiService.DeletePegawaiAsync(id);
+                        if (success) successCount++;
+                    }
+                    TempData["SuccessMessage"] = $"{successCount} records deleted successfully.";
+                    return RedirectToAction(nameof(Index));
+
+                default:
+                    return BadRequest("Invalid action.");
+            }
         }
 
         public async Task<IActionResult> ExportPegawai()
