@@ -98,6 +98,6 @@ C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\b8anl
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\CompanyWeb.sourcelink.json
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\CompanyWeb.csproj.AssemblyReference.cache
 C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\CsvHelper.dll
-C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\0mrbs86b82-mmcyde8n6n.gz
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\CompanyWeb.csproj.Up2Date
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\mar3s60fbe-dm0r4qh147.gz
+C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\0mrbs86b82-zsazj5dnr9.gz
