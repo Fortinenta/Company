@@ -100,4 +100,12 @@ C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\CompanyWeb.cspro
 C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\CsvHelper.dll
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\CompanyWeb.csproj.Up2Date
 C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\mar3s60fbe-dm0r4qh147.gz
-C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\0mrbs86b82-zsazj5dnr9.gz
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\web.config
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\appsettings.Development.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\appsettings.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\CompanyWeb.deps.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\CompanyWeb.runtimeconfig.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\CompanyWeb.staticwebassets.endpoints.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\package-lock.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\bin\Debug\net9.0\publish\package.json
+C:\Enigma\test-work\CompanySolution\CompanyWeb\obj\Debug\net9.0\compressed\0mrbs86b82-jnez3qklaz.gz
