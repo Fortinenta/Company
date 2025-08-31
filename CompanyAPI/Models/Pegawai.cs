@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompanyAPI.Models
 {
@@ -12,6 +13,7 @@ namespace CompanyAPI.Models
         public string NamaLengkap { get; set; } = string.Empty;
 
         [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
         public DateTime? TanggalLahir { get; set; }
 
         [StringLength(255)]
@@ -25,7 +27,12 @@ namespace CompanyAPI.Models
         public string? Email { get; set; }
 
         [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
         public DateTime TanggalMasuk { get; set; }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? TanggalHabisKontrak { get; set; }
 
         [StringLength(50)]
         public string? StatusKontrak { get; set; }

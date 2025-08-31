@@ -15,7 +15,10 @@ builder.Services.AddScoped<IPegawaiService, PegawaiService>();
 builder.Services.AddScoped<ICabangService, CabangService>();
 builder.Services.AddScoped<IJabatanService, JabatanService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -32,6 +35,9 @@ builder.Services.AddCors(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add FileUploadSettings
+builder.Services.Configure<CompanyAPI.Models.FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
 
 var app = builder.Build();
 

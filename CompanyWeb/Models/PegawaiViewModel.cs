@@ -29,6 +29,11 @@ namespace CompanyWeb.Models
         [Display(Name = "Tanggal Masuk")]
         public DateTime TanggalMasuk { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Tanggal Habis Kontrak")]
+        public DateTime? TanggalHabisKontrak { get; set; }
+
         [Display(Name = "Status Kontrak")]
         public string? StatusKontrak { get; set; }
 

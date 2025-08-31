@@ -16,6 +16,7 @@ namespace CompanyAPI.ViewModels
             TanggalLahir = pegawai.TanggalLahir;
             Alamat = pegawai.Alamat;
             TanggalMasuk = pegawai.TanggalMasuk;
+            TanggalHabisKontrak = pegawai.TanggalHabisKontrak;
             StatusKontrak = pegawai.StatusKontrak;
             CabangID = pegawai.CabangID;
             JabatanID = pegawai.JabatanID;
@@ -34,6 +35,10 @@ namespace CompanyAPI.ViewModels
 
         [DataType(DataType.Date)]
         public DateTime TanggalMasuk { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? TanggalHabisKontrak { get; set; }
+
         public string? StatusKontrak { get; set; }
         public int? CabangID { get; set; }
         public int? JabatanID { get; set; }

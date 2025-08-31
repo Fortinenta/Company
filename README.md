@@ -10,13 +10,14 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![CsvHelper](https://img.shields.io/badge/CsvHelper-FF5722?style=for-the-badge&logo=nuget&logoColor=white)
 ![FontAwesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white)
+![Newtonsoft.Json](https://img.shields.io/badge/Newtonsoft.Json-528DD7?style=for-the-badge&logo=nuget&logoColor=white)
 
 Proyek **CompanySolution** adalah aplikasi web full-stack yang dirancang untuk manajemen data perusahaan, termasuk informasi pegawai, cabang, dan jabatan. Aplikasi ini telah mengalami serangkaian peningkatan signifikan untuk menyediakan pengalaman pengguna yang lebih baik dan fungsionalitas manajemen data massal yang kuat.
 
 ## Daftar Isi
 
 - [Gambaran Umum Proyek](#gambaran-umum-proyek)
-- [Fitur Utama & Peningkatan Terbaru](#fitur-utama-&-peningkatan-terbaru)
+- [Fitur Utama & Peningkatan Terbaru](#fitur-utama--peningkatan-terbaru)
 - [Tumpukan Teknologi (Technology Stack)](#tumpukan-teknologi-technology-stack)
 - [Struktur Proyek](#struktur-proyek)
 - [Detail Komponen](#detail-komponen)
@@ -51,6 +52,7 @@ Berikut adalah fitur-fitur inti dan peningkatan signifikan yang telah diimplemen
 *   **Formulir & Tabel Interaktif:** Input formulir yang konsisten, tabel yang mudah dibaca dengan baris bergantian dan efek hover.
 *   **Notifikasi:** Sistem notifikasi yang lebih jelas untuk umpan balik pengguna.
 *   **Ikon:** Penggunaan ikon Font Awesome untuk visualisasi yang lebih baik.
+*   **Pencarian Lanjutan:** Fitur pencarian multi-kriteria di halaman utama pegawai untuk memfilter data berdasarkan nama, status kontrak, cabang, dan jabatan.
 
 ### 📊 Manajemen Data Massal yang Kuat
 *   **Upload & Update Batch Transaksional:**
@@ -59,13 +61,20 @@ Berikut adalah fitur-fitur inti dan peningkatan signifikan yang telah diimplemen
 *   **Template Download:** Unduh template CSV dengan contoh data untuk memudahkan input data baru.
 *   **Export Data Massal:** Export data pegawai yang dipilih ke file CSV untuk analisis atau update offline.
 *   **Hapus Data Massal:** Hapus beberapa data pegawai sekaligus dengan konfirmasi.
+*   **Pelacakan Riwayat Upload:** Setiap file CSV yang diunggah akan dicatat dalam sistem untuk tujuan audit dan pelacakan.
 *   **Halaman Batch Update Khusus:** Halaman terpisah untuk mengelola update data massal dengan kolom read-only untuk ID dan nama lengkap.
 *   **Dropdown Otomatis:** Input untuk Status Kontrak, Cabang, dan Jabatan kini menggunakan dropdown untuk mengurangi kesalahan input.
+
+### 📈 Pelaporan (Reporting)
+*   **Dasbor Laporan:** Menyediakan ringkasan visual atau data agregat mengenai sumber daya perusahaan.
+*   **Laporan Pegawai per Cabang:** Menampilkan distribusi jumlah pegawai di setiap cabang.
+*   **Laporan Pegawai per Jabatan:** Menampilkan distribusi jumlah pegawai di setiap jabatan.
+*   **Laporan Status Kontrak:** Memberikan rincian jumlah pegawai berdasarkan status (e.g., Permanen, Kontrak).
 
 ## Tumpukan Teknologi (Technology Stack)
 
 *   **Backend:**
-    *   Framework: ASP.NET Core 9
+    *   Framework: ASP.NET Core 8
     *   Bahasa: C#
     *   ORM: Entity Framework Core
     *   API Documentation: Swashbuckle (Swagger)
@@ -73,7 +82,7 @@ Berikut adalah fitur-fitur inti dan peningkatan signifikan yang telah diimplemen
     *   Framework: ASP.NET Core MVC
     *   Bahasa: C#, HTML, CSS, JavaScript
     *   CSS Framework: Tailwind CSS (v3)
-    *   Library: jQuery, CsvHelper, Font Awesome
+    *   Library: jQuery, CsvHelper, Font Awesome, Newtonsoft.Json
 *   **Database:**
     *   Sistem: Microsoft SQL Server
 *   **Development Tools:**
@@ -87,7 +96,7 @@ C:\Enigma\test-work\CompanySolution\
 ├─── CompanySolution.sln       // File solusi utama untuk Visual Studio
 ├─── CompanyAPI\               // Proyek Backend (RESTful API)
 │    ├─── Controllers\         // Endpoints API (Pegawai, Cabang, Jabatan, Report)
-│    ├─── Models\              // Model data Entity Framework Core
+│    ├─── Models\              // Model data Entity Framework Core (termasuk UploadedFile)
 │    ├─── Services\            // Logika bisnis & transaksi batch
 │    ├─── ViewModels\          // Data Transfer Objects (DTOs) & BatchResult
 │    └─── Program.cs           // Konfigurasi dan entry point API
@@ -115,10 +124,11 @@ C:\Enigma\test-work\CompanySolution\
 *   **Controllers & Endpoints:**
     *   `CabangController`: Mengelola data cabang.
     *   `JabatanController`: Mengelola data jabatan.
-    *   `PegawaiController`: Mengelola data pegawai. **Kini dilengkapi dengan endpoint `POST /api/pegawai/batch` untuk operasi transaksional.**
-    *   `ReportController`: Menyediakan data untuk laporan.
+    *   `PegawaiController`: Mengelola data pegawai. Dilengkapi dengan endpoint `POST /api/pegawai/batch` untuk operasi transaksional, `POST /api/pegawai/upload` untuk mengunggah file, dan lainnya.
+    *   `ReportController`: Menyediakan data agregat untuk laporan, seperti pegawai per cabang, per jabatan, dan berdasarkan status kontrak.
 *   **Models:**
     *   `Pegawai.cs`, `Cabang.cs`, `Jabatan.cs`: Representasi tabel di database.
+    *   `UploadedFile.cs`: Model untuk mencatat metadata setiap file yang diunggah.
     *   `CompanyDbContext.cs`: Konteks database untuk Entity Framework Core.
 *   **Services:**
     *   Berisi logika bisnis yang dipisahkan dari controller, termasuk implementasi transaksi database untuk operasi batch.
@@ -149,7 +159,7 @@ C:\Enigma\test-work\CompanySolution\
 
 Skrip SQL disediakan untuk mempersiapkan database.
 
-*   `01-CreateTables.sql`: Membuat semua tabel yang diperlukan (`Pegawai`, `Cabang`, `Jabatan`).
+*   `01-CreateTables.sql`: Membuat semua tabel yang diperlukan (`Pegawai`, `Cabang`, `Jabatan`, `UploadedFiles`).
 *   `02-SampleData.sql`: Mengisi tabel dengan data awal untuk keperluan development.
 *   `03-StoredProcedures.sql`: Membuat stored procedure jika ada.
 *   `04-Views.sql`: Membuat view database jika ada.
@@ -165,7 +175,7 @@ Ikuti langkah-langkah ini untuk menjalankan proyek **CompanySolution** di lingku
 Pastikan perangkat lunak berikut sudah terinstal:
 
 1.  **Visual Studio 2022** (atau versi lebih baru) dengan workload **ASP.NET and web development**.
-2.  **.NET 9 SDK** (atau yang sesuai dengan proyek).
+2.  **.NET 8 SDK** (atau yang sesuai dengan proyek).
 3.  **SQL Server** (versi Express atau Developer sudah cukup).
 4.  **SQL Server Management Studio (SSMS)**.
 5.  **Node.js** (LTS version).
@@ -185,13 +195,17 @@ Pastikan perangkat lunak berikut sudah terinstal:
 ### Langkah 3: Konfigurasi Backend (CompanyAPI)
 
 1.  Buka file `CompanyAPI/appsettings.Development.json`.
-2.  Temukan bagian `ConnectionStrings`. Jika tidak ada, tambahkan.
-3.  Ubah `DefaultConnection` agar sesuai dengan konfigurasi SQL Server Anda. Ganti `YOUR_SERVER_NAME` dengan nama server SQL Anda (misalnya, `localhost` atau `DESKTOP-ABC\SQLEXPRESS`).
+2.  Ubah `ConnectionStrings` agar sesuai dengan konfigurasi SQL Server Anda. Ganti `YOUR_SERVER_NAME` dengan nama server SQL Anda (misalnya, `localhost` atau `DESKTOP-ABC\SQLEXPRESS`).
+3.  (Opsional) Konfigurasikan pengaturan untuk upload file.
 
     ```json
     {
       "ConnectionStrings": {
         "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=CompanyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"
+      },
+      "FileUploadSettings": {
+        "AllowedExtensions": [".csv"],
+        "MaxSizeMb": 10
       },
       "Logging": {
         "LogLevel": {

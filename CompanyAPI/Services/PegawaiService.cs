@@ -39,6 +39,7 @@ namespace CompanyAPI.Services
                 NomorTelepon = pegawaiDto.NomorTelepon,
                 Email = pegawaiDto.Email,
                 TanggalMasuk = pegawaiDto.TanggalMasuk,
+                TanggalHabisKontrak = pegawaiDto.TanggalHabisKontrak,
                 StatusKontrak = pegawaiDto.StatusKontrak,
                 CabangID = pegawaiDto.CabangID,
                 JabatanID = pegawaiDto.JabatanID
@@ -68,6 +69,7 @@ namespace CompanyAPI.Services
             pegawai.NomorTelepon = pegawaiDto.NomorTelepon;
             pegawai.Email = pegawaiDto.Email;
             pegawai.TanggalMasuk = pegawaiDto.TanggalMasuk;
+            pegawai.TanggalHabisKontrak = pegawaiDto.TanggalHabisKontrak;
             pegawai.StatusKontrak = pegawaiDto.StatusKontrak;
             pegawai.CabangID = pegawaiDto.CabangID;
             pegawai.JabatanID = pegawaiDto.JabatanID;

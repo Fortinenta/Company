@@ -166,3 +166,10 @@ C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspN
 C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Enigma\test-work\CompanySolution\CompanyAPI\obj\Debug\net9.0\CompanyAPI.sourcelink.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\web.config
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\appsettings.Development.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\appsettings.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\appsettings.Production.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\CompanyAPI.deps.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\CompanyAPI.runtimeconfig.json
+C:\Enigma\test-work\CompanySolution\CompanyAPI\bin\Debug\net9.0\publish\CompanyAPI.staticwebassets.endpoints.json
